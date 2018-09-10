@@ -32,9 +32,15 @@ pi_projection <- function(df_dim) {
   res <- qr(t(D))
   rank <- res$rank
   V <- t(qr.Q(res, complete = TRUE)[, -(1:rank)])
-  colnames(V) <- names(df_dim)
 
-  as.tibble(V) %>%
-    dplyr::mutate(out_name = stringr::str_c("pi", 1:dim(V)[1])) %>%
-    dplyr::select(out_name, tidyselect::everything())
+  if (rank <= 0) {
+    stop("pi-subspace is full-dimensional")
+  } else if (rank >= dim(D)[2]) {
+    stop("pi-subspace is zero-dimensional")
+  } else {
+    colnames(V) <- names(df_dim)
+    as.tibble(V) %>%
+      dplyr::mutate(out_name = stringr::str_c("pi", 1:dim(V)[1])) %>%
+      dplyr::select(out_name, tidyselect::everything())
+  }
 }

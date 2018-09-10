@@ -21,11 +21,11 @@
 
 matched_inner <- function(df_weights, df_target) {
   ## Check input invariants
-  if (!all(names(df_weights %>% dplyr::select(-out_name)) %in% names(df_target))) {
-    stop("df_weights contains targets variables not found in df_target")
-  }
   if (!("out_name" %in% names(df_weights))) {
     stop("df_weights does not contain an out_name column")
+  }
+  if (!all(names(df_weights %>% dplyr::select(-out_name)) %in% names(df_target))) {
+    stop("df_weights contains variables not found in df_target")
   }
   ## Form matrices
   W <-
