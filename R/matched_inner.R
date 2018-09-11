@@ -6,18 +6,25 @@
 #' @export
 #' @examples
 #' df_weights <-
-#'   tibble(
-#'     out_name = c("Y1"),
-#'     X1 = c(0.5),
-#'     X2 = c(-0.5)
+#'   tribble(
+#'     ~out_name, ~X2, ~X1,
+#'          "Y1",   1,  -1,
+#'          "Y2",   0,  -1
 #'   )
+#'
 #' df_target <-
 #'  tibble(
 #'    X1 = c( 0, 1, 2, 3),
-#'    X2 = c( 0, 0, 1, 1)
+#'    X2 = c( 0, 0, 1, 1),
+#'    X3 = c( 5, 6, 7, 8)
 #'  )
 #'
 #' matched_inner(df_weights, df_target)
+#'
+#' bind_cols(
+#'   df_target,
+#'   matched_inner(df_weights, df_target)
+#' )
 
 matched_inner <- function(df_weights, df_target) {
   ## Check input invariants
