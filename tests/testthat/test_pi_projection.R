@@ -32,6 +32,14 @@ df_dim4 <-
        0, -1,  0,  -1,  0
   )
 
+df_dim4_labeled <-
+  tribble(
+    ~dim, ~rho, ~U, ~d, ~mu, ~e,
+     "M",    1,  0,  0,   1,  0,
+     "L",   -3,  1,  1,  -1,  1,
+     "T",    0, -1,  0,  -1,  0
+  )
+
 ## Pull a couple projectors
 V1 <- pi_projection(df_dim1) %>% select(-out_name) %>% as.matrix();
 V4 <- pi_projection(df_dim4) %>% select(-out_name) %>% as.matrix();
@@ -75,6 +83,16 @@ test_that(
     expect_error(
       pi_projection(df_dim3),
       "pi-subspace is full-dimensional"
+    )
+  }
+)
+
+test_that(
+  "Non-numeric columns properly ignored",
+  {
+    expect_equal(
+      pi_projection(df_dim4),
+      pi_projection(df_dim4_labeled)
     )
   }
 )

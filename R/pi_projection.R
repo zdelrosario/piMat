@@ -27,8 +27,11 @@
 #' matched_inner(df_pi_proj, df_target)
 
 pi_projection <- function(df_dim) {
+  df_working <-
+    df_dim %>%
+    select_if(is.numeric)
   ## Compute basis
-  D <- as.matrix(df_dim)
+  D <- as.matrix(df_working)
   res <- qr(t(D))
   rank <- res$rank
   V <- t(qr.Q(res, complete = TRUE)[, -(1:rank)])
@@ -38,7 +41,7 @@ pi_projection <- function(df_dim) {
   } else if (rank >= dim(D)[2]) {
     stop("pi-subspace is zero-dimensional")
   } else {
-    colnames(V) <- names(df_dim)
+    colnames(V) <- names(df_working)
     as.tibble(V) %>%
       dplyr::mutate(out_name = stringr::str_c("pi", 1:dim(V)[1])) %>%
       dplyr::select(out_name, tidyselect::everything())
