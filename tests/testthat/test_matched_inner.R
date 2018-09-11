@@ -43,6 +43,14 @@ df_target <-
         0.5, 0.5
     )
 
+df_target2 <-
+    tribble(
+        ~out_name, ~X1, ~X2,
+             "V1",   1,   0,
+             "V2",   0,   1,
+             "V3", 0.5, 0.5
+    )
+
 ## Units
 test_that(
     "Output names match",
@@ -54,6 +62,16 @@ test_that(
         expect_equal(
             matched_inner(df_w2, df_target) %>% names(),
             df_w2 %>% pull(out_name)
+        )
+    }
+)
+
+test_that(
+    "Optional output rownames match",
+    {
+        expect_equal(
+            matched_inner(df_w1, df_target2) %>% pull(out_name),
+            df_target2 %>% pull(out_name)
         )
     }
 )

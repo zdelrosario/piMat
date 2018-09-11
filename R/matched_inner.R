@@ -51,5 +51,11 @@ matched_inner <- function(df_weights, df_target) {
     ncol = dim(W)[1]
   )
   colnames(res) <- df_weights %>% pull(out_name)
-  as.tibble(res)
+  if ("out_name" %in% names(df_target)) {
+    as.tibble(res) %>%
+      mutate(out_name = df_target %>% pull(out_name)) %>%
+      select(out_name, everything())
+  } else {
+    as.tibble(res)
+  }
 }
