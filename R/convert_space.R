@@ -39,6 +39,9 @@ convert_space <- function(df_given, df_target, ktol = 1e+6) {
   if (length(setdiff(df_given %>% pull(out_name), df_target %>% pull(out_name))) != 0) {
     stop("out_name columns in df_given and df_target do not match!")
   }
+  if (length(setdiff(df_target %>% pull(out_name), df_given %>% pull(out_name))) != 0) {
+    stop("out_name columns in df_given and df_target do not match!")
+  }
   ## Convert to matrices
   M_given <-
     df_given %>%
