@@ -4,12 +4,14 @@
 \alias{convert_space}
 \title{Re-express a given vector space in a target space}
 \usage{
-convert_space(df_given, df_target)
+convert_space(df_given, df_target, ktol = 1e+06)
 }
 \arguments{
 \item{df_given}{full rank matrix (thin or square)}
 
 \item{df_target}{full rank matrix (thin or square)}
+
+\item{ktol}{condition number stopping tolerance}
 }
 \value{
 square coefficient matrix
@@ -34,9 +36,9 @@ df_target <-
         "X3",   0,   1
   )
 
-df_out <- convert_space(df_given, df_target)
+df_V2W <- convert_space(df_given, df_target)
 
-df_t <- matched_inner(df_target, transpose(df_out)) \%>\%
+df_t <- matched_inner(df_target, transpose(df_V2W)) \%>\%
   mutate(out_name = df_target \%>\% names() \%>\% setdiff(., "out_name"))
 transpose(df_t)
 }
