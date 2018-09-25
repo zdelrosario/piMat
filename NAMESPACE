@@ -3,5 +3,6 @@
 export(convert_space)
 export(matched_inner)
 export(named_inner)
+export(pi_nondim)
 export(pi_projection)
 export(transpose)
