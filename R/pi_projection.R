@@ -4,12 +4,13 @@
 #' @return data frame for matched_inner()
 #' @export
 #' @examples
+#' ## Basic example
 #' df_dim <-
 #'   tribble(
-#'     ~rho, ~U, ~d, ~mu,
-#'        1,  0,  0,   1,
-#'       -3,  1,  1,  -1,
-#'        0, -1,  0,  -1
+#'     ~rho, ~U, ~d, ~mu, ~dim,
+#'        1,  0,  0,   1,  "M",
+#'       -3,  1,  1,  -1,  "L",
+#'        0, -1,  0,  -1,  "T"
 #'   )
 #'
 #' df_pi_proj <-
@@ -25,6 +26,17 @@
 #'   )
 #'
 #' matched_inner(df_pi_proj, df_target)
+#'
+#' ## Find basis orthogonal to given direction
+#' df_dim2 <-
+#'   tribble(
+#'     ~a, ~b, ~c, ~d, ~e, ~dim,
+#'      1,  1,  1,  1,  1,  "L",
+#'      1, -1,  0,  0,  0,  ""
+#'   )
+#'
+#' df_pi_proj2 <-
+#'   pi_projection(df_dim2)
 
 pi_projection <- function(df_dim) {
   df_working <-
