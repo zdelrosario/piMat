@@ -7,9 +7,9 @@
 pi_nondim(u_dim, df_dim)
 }
 \arguments{
-\item{u_dim}{target dimensions; named vector}
+\item{u_dim}{target dimensions; named vector, names must be in df_dim %>% pull(dim)}
 
-\item{df_dim}{dimension matrix}
+\item{df_dim}{dimension matrix, must contain `dim` character column}
 }
 \value{
 weights for non-dimensionalizing factor; named vector
@@ -18,6 +18,7 @@ weights for non-dimensionalizing factor; named vector
 Compute a unique non-dimensionalizing factor
 }
 \examples{
+## Construct example
 df_dim <-
   tribble(
     ~rho, ~U, ~d, ~mu, ~dim,
@@ -31,4 +32,11 @@ u_dim <- c(
 )
 
 w_dim <- pi_nondim(u_dim, df_dim)
+
+## Check proper dimensions
+named_inner(w_dim, df_dim)
+
+## Check orthogonality
+df_proj <- pi_projection(df_dim)
+named_inner(w_dim, df_proj)
 }
