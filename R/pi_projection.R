@@ -54,8 +54,9 @@ pi_projection <- function(df_dim) {
     stop("pi-subspace is zero-dimensional")
   } else {
     colnames(V) <- names(df_working)
+    names_pi <- stringr::str_c("pi", 1:dim(V)[1])
     as.tibble(V) %>%
-      dplyr::mutate(out_name = stringr::str_c("pi", 1:dim(V)[1])) %>%
+      dplyr::mutate(out_name = names_pi) %>%
       dplyr::select(out_name, tidyselect::everything())
   }
 }
