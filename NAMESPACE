@@ -2,7 +2,9 @@
 
 export(convert_space)
 export(matched_inner)
+export(matched_powprod)
 export(named_inner)
+export(named_powprod)
 export(pi_nondim)
 export(pi_projection)
 export(transpose)
