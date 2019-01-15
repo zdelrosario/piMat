@@ -24,12 +24,12 @@ transpose <- function(df_given) {
   ## Build output
   res <-
     df_given %>%
-    select(-out_name) %>%
+    dplyr::select(-out_name) %>%
     as.matrix() %>%
     t() %>%
     as.tibble()
   colnames(res) <- new_colnames
   res %>%
-    mutate(out_name = new_rownames) %>%
-    select(out_name, everything())
+    dplyr::mutate(out_name = new_rownames) %>%
+    dplyr::select(out_name, everything())
 }

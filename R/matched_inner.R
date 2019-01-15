@@ -41,7 +41,7 @@ matched_inner <- function(df_weights, df_target) {
     as.matrix()
   M <-
     df_target %>%
-    dplyr::select(names(df_weights %>% select(-out_name))) %>%
+    dplyr::select(names(df_weights %>% dplyr::select(-out_name))) %>%
     as.matrix()
 
   ## Form result
@@ -50,11 +50,11 @@ matched_inner <- function(df_weights, df_target) {
     nrow = dim(M)[1],
     ncol = dim(W)[1]
   )
-  colnames(res) <- df_weights %>% pull(out_name)
+  colnames(res) <- df_weights %>% dplyr::pull(out_name)
   if ("out_name" %in% names(df_target)) {
     as.tibble(res) %>%
-      mutate(out_name = df_target %>% pull(out_name)) %>%
-      select(out_name, everything())
+      dplyr::mutate(out_name = df_target %>% dplyr::pull(out_name)) %>%
+      dplyr::select(out_name, dplyr::everything())
   } else {
     as.tibble(res)
   }
