@@ -45,13 +45,13 @@ convert_space <- function(df_given, df_target, ktol = 1e+6) {
   ## Convert to matrices
   M_given <-
     df_given %>%
-    arrange(out_name) %>%
-    select(-out_name) %>%
+    dplyr::arrange(out_name) %>%
+    dplyr::select(-out_name) %>%
     as.matrix()
   M_target <-
     df_target %>%
-    arrange(out_name) %>%
-    select(-out_name) %>%
+    dplyr::arrange(out_name) %>%
+    dplyr::select(-out_name) %>%
     as.matrix()
   ## Check condition numbers
   k_given = kappa(M_given)
@@ -74,6 +74,6 @@ convert_space <- function(df_given, df_target, ktol = 1e+6) {
   ## Return
   fit$coefficients %>%
     as.tibble() %>%
-    mutate(out_name = df_target %>% names() %>% setdiff(., "out_name")) %>%
-    select(out_name, everything())
+    dplyr::mutate(out_name = df_target %>% names() %>% setdiff(., "out_name")) %>%
+    dplyr::select(out_name, everything())
 }

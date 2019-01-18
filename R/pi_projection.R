@@ -41,7 +41,7 @@
 pi_projection <- function(df_dim) {
   df_working <-
     df_dim %>%
-    select_if(is.numeric) # Remove label column
+    dplyr::select_if(is.numeric) # Remove label column
   ## Compute basis
   D <- as.matrix(df_working)
   res <- qr(t(D))

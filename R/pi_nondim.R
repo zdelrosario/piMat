@@ -37,7 +37,7 @@ pi_nondim <- function(u_dim, df_dim) {
   ## Match row arrangement
   df_dim_tmp <-
     df_dim %>%
-    arrange(match(dim, names(u_dim)))
+    dplyr::arrange(match(dim, names(u_dim)))
   ## Construct linear system
   df_tmp <-
     bind_rows(
@@ -46,7 +46,7 @@ pi_nondim <- function(u_dim, df_dim) {
     )
   M <-
     df_tmp %>%
-    select_if(is.numeric) %>%
+    dplyr::select_if(is.numeric) %>%
     as.matrix()
   b <-
     c(u_dim, rep(0, dim(M)[1] - length(u_dim)))
